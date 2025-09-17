@@ -84,3 +84,30 @@ namespace Magaz
             products.Add(product);
             Console.WriteLine($"Товар добавлен, код товара: {code}");
         }
+        public void RemoveProduct(string code)
+        {
+            foreach (Product p in products)
+            {
+                if (p.Code == code)
+                {
+                    products.Remove(p);
+                    Console.WriteLine($"Товар с кодом {code} успешно удалён");
+                }
+                else
+                {
+                    Console.WriteLine($"Товар с кодом {code} не найден");
+                }
+            }
+            foreach (Product p in products)
+            {
+                if (p.Code == code)
+                {
+                    products.Remove(p);
+                    Console.WriteLine($"Товар с кодом {code} успешно удалён");
+                }
+                else
+                {
+                    Console.WriteLine($"Товар с кодом {code} не найден");
+                }
+            }
+        }
