@@ -34,3 +34,25 @@ namespace Magaz
             $"Категория: {Categorii}";
         }
     }
+
+    public class MagazManager
+    {
+        private List products;
+        private int nextProductId;
+
+        public MagazManager()
+        {
+            products = new List();
+            nextProductId = 1;
+            MagazData();
+        }
+
+        private void MagazData()
+        {
+            AddProduct("Notebook Apple", 45000m, 5, ProductCategorii.Electronika);
+            AddProduct("T-shirt Sigma", 1500m, 20, ProductCategorii.Odejda);
+            AddProduct("Hleb", 500m, 40, ProductCategorii.Eda);
+            AddProduct("Yabloko", 500m, 100, ProductCategorii.Eda);
+            AddProduct("Jeans Levis", 2000m, 15, ProductCategorii.Odejda);
+        }
+
