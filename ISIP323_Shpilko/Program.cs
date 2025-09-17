@@ -111,3 +111,56 @@ namespace Magaz
                 }
             }
         }
+        public void OrderSupply(string code, int colich)
+        {
+            if (colich <= 0)
+            {
+                Console.WriteLine("Ошибка: Количество должно быть положительным");
+                return;
+            }
+
+            foreach (Product p in products)
+            {
+                if (p != null)
+                {
+                    p.Colichestvo += colich;
+                    Console.WriteLine($"Поставка успешно оформлена, новое кол-вор: {p.Colichestvo}");
+                }
+                else
+                {
+                    Console.WriteLine($"Товар с кодом {code} не найден");
+                }
+            }
+        }
+        public void SellProduct(string code, int colich)
+        {
+            if (colich <= 0)
+            {
+                Console.WriteLine("Ошибка: Количество должно быть положительным!");
+                return;
+            }
+
+            foreach (Product p in products)
+            {
+                if (p != null)
+                {
+                    if (p.Colichestvo >= colich)
+                    {
+                        p.Colichestvo -= colich;
+                        decimal totalPrice = p.Price * colich;
+                        Console.WriteLine($"Продажа успешна " +
+                        $"Продано: {colich} шт., Общая сумма: {totalPrice:C}, " +
+                        $"Остаток: {p.Colichestvo} шт.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Ошибка: Недостаточно товара на складе " +
+                        $"Доступно: {p.Colichestvo}, Заказано: {colich}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Товар с кодом {code} не найден");
+                }
+            }
+        }
