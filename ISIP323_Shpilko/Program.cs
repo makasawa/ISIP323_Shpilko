@@ -56,4 +56,31 @@ namespace Magaz
             AddProduct("Jeans Levis", 2000m, 15, ProductCategorii.Odejda);
         }
 
-        
+        private string ProductCodeGenerate()
+        {
+            return $"1{nextProductId++}";
+        }
+
+        public void AddProduct(string name, decimal price, int colich, ProductCategorii categorii)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                Console.WriteLine("Ошибка, название товара не может быть пустым");
+                return;
+            }
+            if (price < 0)
+            {
+                Console.WriteLine("Ошибка, товар должен иметь цену");
+                return;
+            }
+            if (colich < 0)
+            {
+                Console.WriteLine("Ошибка, товара нет на складе");
+                return;
+            }
+
+            string code = ProductCodeGenerate();
+            Product product = new Product(name, code, price, colich, categorii);
+            products.Add(product);
+            Console.WriteLine($"Товар добавлен, код товара: {code}");
+        }
