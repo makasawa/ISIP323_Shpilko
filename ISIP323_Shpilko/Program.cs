@@ -199,3 +199,35 @@ namespace Magaz
                 Console.WriteLine($"Товары с названием '{name}' не найдены");
             }
         }
+        public void DisplayAllProducts()
+        {
+            if (products.Any())
+            {
+                Console.WriteLine("Все товары в магазине:");
+                foreach (var product in products)
+                {
+                    Console.WriteLine(product);
+                    Console.WriteLine("---");
+                }
+            }
+            else
+            {
+                Console.WriteLine("В магазине нет товаров!");
+            }
+        }
+        public void DisplayAllProducts()
+        {
+            if (products.Any())
+            {
+                Console.WriteLine("Все товары в магазине:");
+                foreach (var product in products)
+                {
+                    Console.WriteLine(product);
+                    Console.WriteLine("---");
+                }
+            }
+            else
+            {
+                Console.WriteLine("В магазине нет товаров!");
+            }
+        }
