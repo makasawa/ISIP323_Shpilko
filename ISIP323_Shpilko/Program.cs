@@ -164,3 +164,38 @@ namespace Magaz
                 }
             }
         }
+        public void SearchByCode(string code)
+        {
+            foreach (Product p in products)
+            {
+                if (p != null)
+                {
+                    Console.WriteLine("Найден товар:");
+                    Console.WriteLine(p);
+                }
+                else
+                {
+                    Console.WriteLine($"Товар с кодом {code} не найден");
+                }
+            }
+        }
+
+        public void SearchByName(string name)
+        {
+            var foundProducts = products
+            .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+            if (foundProducts.Any())
+            {
+                Console.WriteLine($"Найдено товаров: {foundProducts.Count}");
+                foreach (var product in foundProducts)
+                {
+                    Console.WriteLine(product);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Товары с названием '{name}' не найдены");
+            }
+        }
