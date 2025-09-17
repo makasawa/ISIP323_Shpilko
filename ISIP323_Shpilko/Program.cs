@@ -56,3 +56,4 @@ namespace Magaz
             AddProduct("Jeans Levis", 2000m, 15, ProductCategorii.Odejda);
         }
 
+        
