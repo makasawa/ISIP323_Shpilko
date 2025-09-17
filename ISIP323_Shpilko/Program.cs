@@ -231,3 +231,56 @@ namespace Magaz
                 Console.WriteLine("В магазине нет товаров!");
             }
         }
+        static void RemoveProductMenu(MagazManager store)
+        {
+            Console.Write("Введите код товара для удаления: ");
+            string code = Console.ReadLine();
+            store.RemoveProduct(code);
+        }
+
+        static void OrderSupplyMenu(MagazManager store)
+        {
+            Console.Write("Введите код товара: ");
+            string code = Console.ReadLine();
+
+            Console.Write("Введите количество для заказа: ");
+            if (!int.TryParse(Console.ReadLine(), out int colich) || colich <= 0)
+            {
+                Console.WriteLine("Неверный формат количества!");
+                return;
+            }
+
+            store.OrderSupply(code, colich);
+        }
+
+        static void SellProductMenu(MagazManager store)
+        {
+            Console.Write("Введите код товара: ");
+            string code = Console.ReadLine();
+
+            Console.Write("Введите количество для продажи: ");
+            if (!int.TryParse(Console.ReadLine(), out int colich) || colich <= 0)
+            {
+                Console.WriteLine("Неверный формат количества!");
+                return;
+            }
+
+            store.SellProduct(code, colich);
+        }
+
+        static void SearchByCodeMenu(MagazManager store)
+        {
+            Console.Write("Введите код товара: ");
+            string code = Console.ReadLine();
+            store.SearchByCode(code);
+        }
+
+        static void SearchByNameMenu(MagazManager store)
+        {
+            Console.Write("Введите название товара: ");
+            string name = Console.ReadLine();
+            store.SearchByName(name);
+        }
+}
+
+Найти еще
