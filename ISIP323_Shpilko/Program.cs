@@ -67,4 +67,114 @@ public static class Programm
             }
         }
     }
+    static List<Book> books = new List<Book>();
+    static void OuptputAllBooks()
+    {
+        if (books.Count == 0)
+        {
+            Console.WriteLine("библиотека пуста");
+            return;
+        }
+
+        Console.WriteLine("\nсписок всех книг в библиотеке:\n");
+        foreach (var book in books)
+        {
+            Console.WriteLine(book.Print());
+        }
+        Console.WriteLine();
+    }
+    static void AddTestData()
+    {
+        books.Add(new Book("гуччи пудж", 1500m, 1966, "Лобочкин Максим", BookJanre.Fantasy));
+        books.Add(new Book("убийство виспа(ио)", 1200m, 1866, "Гусенков Вадим", BookJanre.Drama));
+        books.Add(new Book("1994 урса на лайне", 2000m, 1867, "Шпилько Максим", BookJanre.Drama));
+        books.Add(new Book("гордость за команду", 800m, 1833, "Пермякова Мария", BookJanre.Romantic));
+        books.Add(new Book("расследование на складе озон", 1800m, 1997, "Зевакин Даниил", BookJanre.Fantasy));
+
+        Console.WriteLine("тестовые данные добавлены успешно");
+        Console.WriteLine($"добавлено 5 тестовых книг");
+    }
+
+    static void AddBook()
+    {
+        Console.Write("введите название книги: ");
+        string name = Console.ReadLine();
+
+        Console.Write("введите автора: ");
+        string author = Console.ReadLine();
+
+        Console.Write("введите год издания: ");
+        int year;
+        while (!int.TryParse(Console.ReadLine(), out year) || year <= 0)
+        {
+            Console.Write("некорректный ввод. Введите год издания снова: ");
+        }
+
+        Console.Write("введите цену: ");
+        decimal price;
+        while (!decimal.TryParse(Console.ReadLine(), out price) || price <= 0)
+        {
+            Console.Write("некорректный ввод. Введите положительную цену: ");
+        }
+
+        Console.WriteLine("\nвыберите жанр:");
+        int index = 1;
+        foreach (BookJanre genre in Enum.GetValues(typeof(BookJanre)))
+        {
+            Console.WriteLine($"{index}. {genre}");
+            index++;
+        }
+
+        int genreChoice;
+        while (!int.TryParse(Console.ReadLine(), out genreChoice) || genreChoice < 1 || genreChoice > Enum.GetValues(typeof(BookJanre)).Length)
+        {
+            Console.Write("некорректный выбор");
+        }
+
+        BookJanre selectedGenre = (BookJanre)Enum.GetValues(typeof(BookJanre)).GetValue(genreChoice - 1);
+
+        Book newBook = new Book(name, price, year, author, selectedGenre);
+        books.Add(newBook);
+
+
+
+    }
+}
+
+public enum BookJanre
+{
+    Romantic,
+    Fantasy,
+    Drama
+}
+public class Book
+{
+    private static int nextID = 1;
+    public int ID { get; }
+    public string Name { get; private set; }
+    public string Autor { get; private set; }
+    public BookJanre Janre { get; private set; }
+    public int Year { get; private set; }
+    public decimal Price { get; private set; }
+
+    public Book(string name, decimal price, int year, string autor, BookJanre category)
+    {
+        if (name == null) throw new ArgumentNullException("укажите название книги");
+        if (autor == null) throw new ArgumentNullException("укажите автора");
+        if (year <= 0) throw new ArgumentOutOfRangeException("год не может быть отрицательным");
+        if (price <= 0) throw new ArgumentOutOfRangeException("цена должна быть положительной");
+
+        ID = nextID++;
+        Name = name;
+        Price = price;
+        Year = year;
+        Autor = autor;
+        Janre = category;
+    }
+
+    public string Print()
+    {
+        return $"код: {ID}, название: {Name}, цена: {Price:R}, год выхода: {Year}, автор: {Autor}, жанр: {Janre}";
+    }
+
 }
