@@ -135,9 +135,125 @@ public static class Programm
 
         Book newBook = new Book(name, price, year, author, selectedGenre);
         books.Add(newBook);
+    }
+
+    static void RemoveBook()
+    {
+        Console.Write("введите ID для удаления:");
+        int id;
+        if (int.TryParse(Console.ReadLine(), out id))
+        {
+            var book = books.FirstOrDefault(b => b.ID == id);
+            if (book != null)
+            {
+                books.Remove(book);
+                Console.WriteLine("успешно");
+            }
+        }
+    }
+
+    static void SearchNameBook()
+    {
+        Console.Write("введите название книги: ");
+        string name = Console.ReadLine().ToLower();
+        var results = books.Where(b => b.Name.ToLower().Contains(name)).ToList();
+
+        if (results.Count == 0)
+        {
+            Console.WriteLine("книги не найдены");
+        }
+        else
+        {
+            results.ForEach(b => Console.WriteLine(b.Print()));
+        }
+    }
 
 
+    static void SearchAutorBook()
+    {
+        Console.Write("введите автора книги:");
+        string Autor = Console.ReadLine().ToLower();
+        var results = books.Where(b => b.Autor.ToLower().Contains(Autor)).ToList();
 
+        if (results.Count == 0)
+        {
+            Console.WriteLine("книги не найдены");
+        }
+        else
+        {
+            results.ForEach(b => Console.WriteLine(b.Print()));
+        }
+    }
+
+    static void SearchJanreBook()
+    {
+        if (books.Count == 0)
+        {
+            Console.WriteLine("библиотека пуста\n");
+            return;
+        }
+
+        Console.WriteLine("выберите жанр:");
+        foreach (var genre in Enum.GetValues(typeof(BookJanre)))
+            Console.WriteLine($"{(int)genre} — {genre}");
+
+        Console.Write("\nвведите номер жанра:");
+        if (!int.TryParse(Console.ReadLine(), out int choice) || !Enum.IsDefined(typeof(BookJanre), choice))
+        {
+            Console.WriteLine("некорректный выбор\n");
+            return;
+        }
+
+        BookJanre selectedGenre = (BookJanre)choice;
+
+        var filteredBooks = books.Where(b => b.Janre == selectedGenre).ToList();
+
+        if (filteredBooks.Count == 0)
+        {
+            Console.WriteLine($"книг жанра {selectedGenre} не найдено\n");
+            return;
+        }
+
+        Console.WriteLine($"\nкниги жанра {selectedGenre}:\n");
+        foreach (var book in filteredBooks)
+            Console.WriteLine(book.Print());
+
+    }
+
+    static void SortByName()
+    {
+        var sorted = books.OrderBy(b => b.Name).ToList();
+        sorted.ForEach(b => Console.WriteLine(b.Print()));
+    }
+
+    static void SortByYear()
+    {
+        var sorted = books.OrderBy(b => b.Year).ToList();
+        sorted.ForEach(b => Console.WriteLine(b.Print()));
+    }
+
+    static void OutputMinPrice()
+    {
+        var min = books.OrderBy(b => b.Price).ToList().FirstOrDefault();
+        Console.WriteLine(min.Print());
+    }
+
+    static void OutputMaxPrice()
+    {
+        var max = books.OrderBy(b => b.Price).ToList().LastOrDefault();
+        Console.WriteLine(max.Print());
+    }
+
+    static void OutputCountBookAutor()
+    {
+        var groups = books.GroupBy(b => b.Autor)
+                           .Select(g => new { Autor = g.Key, Count = g.Count() });
+        Console.WriteLine("количество книг по авторам:");
+        foreach (var g in groups)
+        {
+            Console.WriteLine($"{g.Autor}: {g.Count}");
+        }
+        Console.WriteLine();
     }
 }
 
