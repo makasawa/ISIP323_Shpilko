@@ -77,31 +77,31 @@ public static class Programm
     }
     public class Book
     {
-        private static int nextID = 1;
-        public int ID { get; }
+        private static int nextId = 1;
+        public int Id { get; }
         public string Title { get; set; }
         public string Author { get; set; }
         public GenreBook Genre { get; set; }
         public int Year { get; set; }
         public decimal Price { get; set; }
 
-        public Book(string title, decimal price, int year, string author, GenreBook category)
+        public Book(string title, decimal price, int year, string author, GenreBook genre)
         {
-            if (title == null) throw new ArgumentNullException("укажите название книги");
-            if (author == null) throw new ArgumentNullException("укажите автора");
-            if (year <= 0) throw new ArgumentOutOfRangeException("год не может быть отрицательным");
-            if (price <= 0) throw new ArgumentOutOfRangeException("цена должна быть положительной");
-
-            ID = nextID++;
+            Id = nextId++;
             Title = title;
+            Author = author;
+            Genre = genre;
             Price = price;
             Year = year;
-            Author = author;
-            Genre = category;
+           
+            if (title == null) throw new ArgumentNullException("укажите название книги");
+            if (author == null) throw new ArgumentNullException("укажите автора");
+            if (price <= 0) throw new ArgumentOutOfRangeException("цена должна быть положительной");
+            if (year <= 0) throw new ArgumentOutOfRangeException("год не может быть отрицательным");
         }
         public string Print()
         {
-            return $"Id: {ID}, title: {Title}, price: {Price:R}, year: {Year}, author: {Author}, genre: {Genre}";
+            return $"Id: {Id}, title: {Title}, price: {Price:R}, year: {Year}, author: {Author}, genre: {Genre}";
         }
     }
     static List<Book> books = new List<Book>();
@@ -180,7 +180,7 @@ public static class Programm
         int id;
         if (int.TryParse(Console.ReadLine(), out id))
         {
-            var book = books.FirstOrDefault(b => b.ID == id);
+            var book = books.FirstOrDefault(b => b.Id == id);
             if (book != null)
             {
                 books.Remove(book);
@@ -243,16 +243,16 @@ public static class Programm
 
         GenreBook selectedGenre = (GenreBook)choice;
 
-        var filteredBooks = books.Where(b => b.Genre == selectedGenre).ToList();
+        var genresortBooks = books.Where(b => b.Genre == selectedGenre).ToList();
 
-        if (filteredBooks.Count == 0)
+        if (genresortBooks.Count == 0)
         {
             Console.WriteLine($"книг жанра {selectedGenre} не найдено\n");
             return;
         }
 
         Console.WriteLine($"\nкниги жанра {selectedGenre}:\n");
-        foreach (var book in filteredBooks)
+        foreach (var book in genresortBooks)
             Console.WriteLine(book.Print());
 
     }
