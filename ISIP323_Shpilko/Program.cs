@@ -120,6 +120,7 @@ public static class Programm
             return;
         }
     }
+
     static void AddTestBooks()
     {
         books.Add(new Book("гуччи пудж", 1500m, 1966, "Лобочкин Максим", GenreBook.Fantasy));
