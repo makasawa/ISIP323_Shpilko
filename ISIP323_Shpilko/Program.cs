@@ -61,42 +61,102 @@ class University
     }
     public void AddStudent(Student student)
     {
-
+        students.Add(student);
     }
     public List<Student> GetAllStudents()
     {
-
+        return students;
     }
     public Student FindStudentById(int id)
     {
-
+        return students.Find(s => s.Id == id);
     }
     public void AddTeacher(Teacher teacher)
     {
-
+        teachers.Add(teacher);
     }
     public List<Teacher> GetAllTeachers()
     {
-
+        return teachers;
     }
     public void AddCourse(Course course)
     {
-  
+        courses.Add(course);
     }
     public List<Course> GetAllCourses()
     {
-
+        return courses;
     }
     public Course FindCourseByName(string name)
     {
-   
+        return courses.Find(c => c.CourseName == name);
     }
     public void StudentInCourse(int studentId, string courseName)
     {
-  
+        var student = FindStudentById(studentId);
+        var course = FindCourseByName(courseName);
+        student.Courses.Add(course);
+        course.Students.Add(student);
     }
     public void TeacherToCourse(string teacherName, string courseName)
     {
-        
+        var teacher = teachers.Find(t => t.Name == teacherName);
+        var course = FindCourseByName(courseName);
+
+        course.Teacher = teacher;
+        teacher.Courses.Add(course);
     }
 }
+class Program
+{
+    private static University university = new University();
+    static void Main(string[] args)
+    {
+        while (true)
+        {
+            Console.WriteLine("---- меню ----");
+            Console.WriteLine("1. добавить дипсикера");
+            Console.WriteLine("2. добавить ГВВ");
+            Console.WriteLine("3. добавить курс");
+            Console.WriteLine("4. показать всех дипсикеров");
+            Console.WriteLine("5. показать всех ГВВ");
+            Console.WriteLine("6. показать все курсы");
+            Console.WriteLine("7. записать дипсикера на курс");
+            Console.WriteLine("8. назначить ГВВ на курс");
+            Console.WriteLine("9. показать курсы дипсикера");
+            Console.WriteLine("10. показать дипсикеров курса");
+            Console.WriteLine("0. выход");
+            Console.Write("выберите: ");
+
+            var choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    AddStudent(); break;
+                case "2":
+                    AddTeacher(); break;
+                case "3":
+                    AddCourse(); break;
+                case "4":
+                    ShowAllStudents(); break;
+                case "5":
+                    ShowAllTeachers(); break;
+                case "6":
+                    ShowAllCourses(); break;
+                case "7":
+                    StudentInCourse(); break;
+                case "8":
+                    TeacherToCourse(); break;
+                case "9":
+                    ShowStudentCourses(); break;
+                case "10":
+                    ShowCourseStudents(); break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("неверный выбор");
+                    break;
+            }
+        }
+    }
+    
