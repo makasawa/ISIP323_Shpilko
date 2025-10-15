@@ -59,5 +59,44 @@ class University
         teachers = new List<Teacher>();
         courses = new List<Course>();
     }
-    
+    public void AddStudent(Student student)
+    {
+
+    }
+    public List<Student> GetAllStudents()
+    {
+
+    }
+    public Student FindStudentById(int id)
+    {
+
+    }
+    public void AddTeacher(Teacher teacher)
+    {
+
+    }
+    public List<Teacher> GetAllTeachers()
+    {
+
+    }
+    public void AddCourse(Course course)
+    {
+  
+    }
+    public List<Course> GetAllCourses()
+    {
+
+    }
+    public Course FindCourseByName(string name)
+    {
+   
+    }
+    public void StudentInCourse(int studentId, string courseName)
+    {
+  
+    }
+    public void TeacherToCourse(string teacherName, string courseName)
+    {
+        
+    }
 }
